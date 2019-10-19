@@ -46,13 +46,10 @@ The percentage should have 2 decimal digits
 
 # PART A
 called_from_banglore = {call[1] for call in calls if call[0][:5] == '(080)'}
-fixed_lines_area_codes = {phone[:phone.find(')') + 1].replace('(', '').replace(')', '') for phone in
-                          called_from_banglore if ')' in phone}
 
-mobile_lines_area_codes = {phone[0:4] for phone in called_from_banglore if ')' not in phone}
-
-print('The numbers called by people in Bangalore have codes:' + '\n' + '\n'.join(
-    sorted(list(mobile_lines_area_codes) + list(fixed_lines_area_codes))))
+area_codes = [phone[:phone.find(')') + 1].replace('(', '').replace(')', '') if ')' in phone else phone[0:4] for phone in
+              called_from_banglore]
+print('The numbers called by people in Bangalore have codes:' + '\n' + '\n'.join(sorted(area_codes)))
 
 # PART B
 print()

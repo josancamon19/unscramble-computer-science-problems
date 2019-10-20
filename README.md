@@ -63,8 +63,7 @@ rubric and will leave helpful comments on your code.
 Always gonna take the same amount of time
 ```
 print(texts[0][0], 'texts', texts[0][1], 'at time', texts[0][2])
-last_call = texts[len(calls) - 1]
-print(last_call[0], 'calls', last_call[1], 'at time', last_call[2], 'lasting', last_call[3], 'seconds')
+print(calls[-1][0], 'calls', calls[-1][1], 'at time', calls[-1][2], 'lasting', calls[-1][3], 'seconds')
 ```
 
 #### Task 1 - O(n)

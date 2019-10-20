@@ -95,7 +95,7 @@ trying to get the area codes will iterate among all calls again
 called_from_banglore = {call[1] for call in calls if call[0][:5] == '(080)'}
 area_codes = [phone[:phone.find(')') + 1].replace('(', '').replace(')', '') if ')' in phone else phone[0:4] for phone in
               called_from_banglore]
-print('The numbers called by people in Bangalore have codes:' + '\n' + '\n'.join(sorted(area_codes)))
+print('The numbers called by people in Bangalore have codes:\n' + '\n'.join(sorted(sorted(set(area_codes)), key=len)))
 ```
 ##### PART B - worst case - O(n^2)
 Suppossing all numbers in the first loop trying to obtain  ```called_from_banglore``` are from banglore and all of them 

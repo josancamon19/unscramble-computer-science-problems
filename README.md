@@ -111,6 +111,8 @@ print('{0:.2f}'.format(
 #### Task 4 - O(n)
 There is 1 for loop iterating over calls object
 ```
-print('These numbers could be telemarketers:\n', list(set([call[0] for call in calls if call[0][0:3] == '140'])))
+
+print('These numbers could be telemarketers:\n',
+      sorted(list(set([call[0] for call in calls if call[0][0:3] == '140']))))
 ```
 

@@ -25,4 +25,5 @@ Print a message:
 The list of numbers should be print out one per line in lexicographic order with no duplicates.
 """
 
-print('These numbers could be telemarketers:\n', list(set([call[0] for call in calls if call[0][0:3] == '140'])))
+print('These numbers could be telemarketers:\n',
+      sorted(list(set([call[0] for call in calls if call[0][0:3] == '140']))))

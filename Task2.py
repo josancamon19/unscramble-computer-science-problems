@@ -21,6 +21,11 @@ Print a message:
 September 2016.".
 """
 
-longest_call_duration = calls[sorted([(idx, call[2]) for idx, call in enumerate(calls)], reverse=True)[0][0]]
-print(longest_call_duration[0], 'spent the longest time,', longest_call_duration[3],
+d = {}
+for call in calls:
+    for phone in call[:2]:
+        d[phone] = d.get(phone, 0) + int(call[3])
+longest_call_duration = sorted(d.items(), key=lambda c: c[1], reverse=True)[0]
+
+print(longest_call_duration[0], 'spent the longest time,', longest_call_duration[1],
       'seconds, on the phone during September 2016.')

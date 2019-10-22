@@ -74,7 +74,6 @@ print('There are', len(set([phone for record in (texts + calls) for phone in rec
 
 #### Task 2 - O(n)
 There is 1 for loop iterating over calls object
-
 ```
 d = {}
 for call in calls:
@@ -88,31 +87,33 @@ print(longest_call_duration[0], 'spent the longest time,', longest_call_duration
 
 #### Task 3 - O(1)
 
-##### PART A - worst case - O(n^2)
+##### PART A - worst case - O(n)
 Suppossing all numbers in the first loop trying to obtain  ```called_from_banglore``` are from banglore, the second loop
-trying to get the area codes will iterate among all calls again
+trying to get the area codes will iterate among all calls again O(n + n) - > O(n)
 ```
-called_from_banglore = {call[1] for call in calls if call[0][:5] == '(080)'}
+called_from_banglore = [call[1] for call in calls if call[0][:5] == '(080)']
 area_codes = [phone[:phone.find(')') + 1].replace('(', '').replace(')', '') if ')' in phone else phone[0:4] for phone in
               called_from_banglore]
-print('The numbers called by people in Bangalore have codes:\n' + '\n'.join(sorted(sorted(set(area_codes)), key=len)))
+print('The numbers called by people in Bangalore have codes:\n' + '\n'.join(sorted(set(area_codes))))
 ```
-##### PART B - worst case - O(n^2)
+##### PART B - worst case - O(n)
 Suppossing all numbers in the first loop trying to obtain  ```called_from_banglore``` are from banglore and all of them 
-called to banglore numbers the second loop will iterate among all calls again
+called to banglore numbers the second loop will iterate among all calls again O(2n) -> O(n)
 ```
-called_from_banglore = {call[1] for call in calls if call[0][:5] == '(080)'}
+called_from_banglore = [call[1] for call in calls if call[0][:5] == '(080)']
 print('{0:.2f}'.format(
     (len([phone for phone in called_from_banglore if '(080)' in phone]) / len(called_from_banglore)) * 100),
     'percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.')
-
 ```
 
 #### Task 4 - O(n)
-There is 1 for loop iterating over calls object
+There are 2 for loops iterating over calls object but separated, not one inside the other so 2n becomes n
 ```
+texters = [phone for text in texts for phone in text[:2]]
+call_receivers = [call[1] for call in calls]
+marketers = [call[0] for call in calls if call[0] not in texters and call[0] not in call_receivers]
 
-print('These numbers could be telemarketers:\n',
-      sorted(list(set([call[0] for call in calls if call[0][0:3] == '140']))))
+print('These numbers could be telemarketers:')
+print('\n'.join(set(marketers)))
 ```
 

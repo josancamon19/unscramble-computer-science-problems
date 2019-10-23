@@ -85,35 +85,34 @@ print(longest_call_duration[0], 'spent the longest time,', longest_call_duration
       'seconds, on the phone during September 2016.')
 ```
 
-#### Task 3 - O(1)
+#### Task 3 - O(n)
+1. 1 loop among calls -> O(n)
+2. 1 loop among calls (worst case all calls again) -> O(n)
+3. 1 sorted function -> O(nlogn)
+4. 1 loop among calls (worst case all calls again) -> O(n)
 
-##### PART A - worst case - O(n)
-Suppossing all numbers in the first loop trying to obtain  ```called_from_banglore``` are from banglore, the second loop
-trying to get the area codes will iterate among all calls again O(n + n) - > O(n)
+Total = O(n + n + nlogn + n) -> O(n) 
 ```
 called_from_banglore = [call[1] for call in calls if call[0][:5] == '(080)']
 area_codes = [phone[:phone.find(')') + 1].replace('(', '').replace(')', '') if ')' in phone else phone[0:4] for phone in
               called_from_banglore]
 print('The numbers called by people in Bangalore have codes:\n' + '\n'.join(sorted(set(area_codes))))
-```
-##### PART B - worst case - O(n)
-Suppossing all numbers in the first loop trying to obtain  ```called_from_banglore``` are from banglore and all of them 
-called to banglore numbers the second loop will iterate among all calls again O(2n) -> O(n)
-```
-called_from_banglore = [call[1] for call in calls if call[0][:5] == '(080)']
+
 print('{0:.2f}'.format(
     (len([phone for phone in called_from_banglore if '(080)' in phone]) / len(called_from_banglore)) * 100),
     'percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.')
 ```
 
-#### Task 4 - O(n)
-There are 2 for loops iterating over calls object but separated, not one inside the other so 2n becomes n
+#### Task 4 - O(n^2)
+There are 1 loop inside other loop in marketers variable -> O(n^2)
+The sorted function at the end -> O(nlogn)
+a + b = n^2 + nlogn --> O(n^2)
 ```
 texters = [phone for text in texts for phone in text[:2]]
 call_receivers = [call[1] for call in calls]
 marketers = [call[0] for call in calls if call[0] not in texters and call[0] not in call_receivers]
 
 print('These numbers could be telemarketers:')
-print('\n'.join(set(marketers)))
+print('\n'.join(sorted(set(marketers))))
 ```
 

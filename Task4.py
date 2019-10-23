@@ -30,4 +30,4 @@ call_receivers = [call[1] for call in calls]
 marketers = [call[0] for call in calls if call[0] not in texters and call[0] not in call_receivers]
 
 print('These numbers could be telemarketers:')
-print('\n'.join(set(marketers)))
+print('\n'.join(sorted(set(marketers))))

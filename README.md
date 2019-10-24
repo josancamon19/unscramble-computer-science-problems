@@ -91,7 +91,7 @@ print(longest_call_duration[0], 'spent the longest time,', longest_call_duration
 3. 1 sorted function -> O(nlogn)
 4. 1 loop among calls (worst case all calls again) -> O(n)
 
-Total = O(n + n + nlogn + n) -> O(n) 
+Total = O(n + n + nlogn + n) -> O(3n + nlogn) -> O(nlogn) 
 ```
 called_from_banglore = [call[1] for call in calls if call[0][:5] == '(080)']
 area_codes = [phone[:phone.find(')') + 1].replace('(', '').replace(')', '') if ')' in phone else phone[0:4] for phone in
@@ -104,15 +104,17 @@ print('{0:.2f}'.format(
 ```
 
 #### Task 4 - O(n^2)
-There are 1 loop inside other loop in marketers variable -> O(n^2)
+Getting texters -> O(n)
+Getting call_receivers -> O(n)
+Getting marketers -> O(n) 
 The sorted function at the end -> O(nlogn)
-a + b = n^2 + nlogn --> O(n^2)
+O(n + n + n + nlogn) -> O(3n + nlogn) -> O(nlogn) as final complexity
 ```
-texters = [phone for text in texts for phone in text[:2]]
-call_receivers = [call[1] for call in calls]
-marketers = [call[0] for call in calls if call[0] not in texters and call[0] not in call_receivers]
+texters = {phone for text in texts for phone in text[:2]}
+call_receivers = {call[1] for call in calls}
+marketers = {call[0] for call in calls if call[0] not in texters and call[0] not in call_receivers}
 
 print('These numbers could be telemarketers:')
-print('\n'.join(sorted(set(marketers))))
+print('\n'.join(sorted(marketers)))
 ```
 
